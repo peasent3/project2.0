@@ -18,6 +18,11 @@ app.get("/off", (req, res) => {
     console.log("Light turned OFF");
     res.send("Light is OFF");
 });
+app.get("/nothing", (req, res) => {
+    lightStatus = "nothing";
+    console.log("Light turned same");
+    res.send("Light is same");
+});
  
 app.get("/status", (req, res) => {
     res.send(lightStatus);
