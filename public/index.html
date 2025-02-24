@@ -22,6 +22,28 @@
 <button onmousedown="turnOff()" onmouseup="doNothing()">Turn OFF</button>
  
     <script>
+        
+        document.addEventListener("keydown", function(event) { // checks even if arrows keys are pressed
+            switch (event.key) {
+                case 'ArrowUp':
+                    turnOn();
+                    break;
+                case 'ArrowDown':
+                    turnOff();
+                    break;
+                case 'ArrowLeft':
+                    keyPressed = 'Left Arrow Key';
+                    break;
+                case 'ArrowRight':
+                    keyPressed = 'Right Arrow Key';
+                    break;
+                default:
+                    return; // Ignore other keys
+            }
+        });
+
+
+
 
         function turnOn() {
 
