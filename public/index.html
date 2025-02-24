@@ -30,7 +30,7 @@
                     turnOn();
                     break;
                 case 'ArrowDown':
-                    turnOf();
+                    turnOff();
                     break;
                 case 'ArrowLeft':
                     keyPressed = 'Left Arrow Key';
@@ -40,6 +40,7 @@
                     break;
                 default:
                     doNothing();
+                    return;
             }
 
         
