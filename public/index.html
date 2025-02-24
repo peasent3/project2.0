@@ -24,13 +24,13 @@
     <script>
         
         document.addEventListener("keydown", function(event) {
-            let keyPressed = '';
+        
             switch (event.key) {
                 case 'ArrowUp':
-                    keyPressed = 'Up Arrow Key';
+                    turnOn();
                     break;
                 case 'ArrowDown':
-                    keyPressed = 'Down Arrow Key';
+                    turnOf();
                     break;
                 case 'ArrowLeft':
                     keyPressed = 'Left Arrow Key';
@@ -39,11 +39,7 @@
                     keyPressed = 'Right Arrow Key';
                     break;
                 default:
-                    keyPressed = 'nothing';
-            }
-
-            if(keyPressed == "Up Arrow Key"){
-                turnOn();
+                    doNothing();
             }
 
         
