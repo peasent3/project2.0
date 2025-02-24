@@ -1,7 +1,7 @@
 #include "esp_camera.h"
 #include <WiFi.h>
 #include <HTTPClient.h>
-#include <ESP32Servo.h>
+#include <ESP32Servo.h> 
 
 // WARNING!!! PSRAM IC required for UXGA resolution and high JPEG quality
 //            Ensure ESP32 Wrover Module or other board with PSRAM is selected
@@ -43,8 +43,28 @@ const char* serverUrl = "http://192.168.1.122:3000";
 void startCameraServer();
 void setupLedFlash(int pin);
 #define LED_PIN 2 // Change to your LED pin
- 
+
+Servo servo1;
+Servo servo2;
+
+#define SERVO_1      15 // Initialize Servos
+#define SERVO_2      12
+#define SERVO_STEP   5 
+
+int servo1Pos = 90;
+int servo2Pos = 0;
+
 void setup() {
+
+  servo1.setPeriodHertz(50);    // standard 50 hz servo
+  servo2.setPeriodHertz(50);    // standard 50 hz servo
+  
+  servo1.attach(SERVO_1);
+  servo2.attach(SERVO_2);
+  //-------------------------------------
+  servo1.write(servo1Pos);
+  servo2.write(servo2Pos);
+
   Serial.begin(115200);
   Serial.setDebugOutput(true);
   Serial.println();
@@ -151,6 +171,7 @@ void setup() {
   Serial.print("Camera Ready! Use 'http://");
   Serial.print(WiFi.localIP());
   Serial.println("' to connect");
+  delay(500);
 }
 
 void loop() {
@@ -161,18 +182,36 @@ void loop() {
  
         if (httpResponseCode > 0) {
             String response = http.getString();
-            Serial.println("Server response: " + response);
- 
-            if (response == "on") {
-                digitalWrite(LED_PIN, HIGH);
-            } else if (response == "off") {
-                digitalWrite(LED_PIN, LOW);
+           // Serial.println("Server response: " + response);
+           // Serial.println("Server response: " + httpResponseCode);
+
+              while (response == "on" && servo1Pos < 180) {
+                 Serial.println("Server response: " + response);
+                 Serial.println(servo1Pos);
+                 servo1Pos = servo1Pos + 15;
+                 servo1.write(servo1Pos);              // tell servo to go to position in variable 'pos'
+                delay(50);
+                break;
+                }
+                while (response == "off" && servo1Pos > 0) {
+                 Serial.println("Server response: " + response);
+                 Serial.println(servo1Pos);
+                 servo1Pos = servo1Pos - 15;
+                 servo1.write(servo1Pos);
+                delay(50);
+                break;
+              } 
+                while(response == "nothing"){
+                Serial.println("Im doing nothing:");
+                
+                Serial.println(servo1Pos);
+                delay(50);
+                break;
+              } 
+                
             }
-        } else {
-            Serial.println("Error in HTTP request");
-        }
- 
+  
         http.end();
     }
-  delay(500);
+  delay(100);
 }
