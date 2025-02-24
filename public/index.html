@@ -23,15 +23,14 @@
  
     <script>
         
-        document.addEventListener("keydown", function(event) { // checks even if arrows keys are pressed
+        document.addEventListener("keydown", function(event) {
+            let keyPressed = '';
             switch (event.key) {
                 case 'ArrowUp':
-                    turnOn();
-                    doNothing();
+                    keyPressed = 'Up Arrow Key';
                     break;
                 case 'ArrowDown':
-                    turnOff();
-                    doNothing();
+                    keyPressed = 'Down Arrow Key';
                     break;
                 case 'ArrowLeft':
                     keyPressed = 'Left Arrow Key';
@@ -40,8 +39,14 @@
                     keyPressed = 'Right Arrow Key';
                     break;
                 default:
-                    return; // Ignore other keys
+                    keyPressed = 'nothing';
             }
+
+            if(keyPressed == "Up Arrow Key"){
+                turnOn();
+            }
+
+        
         });
 
 
