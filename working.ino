@@ -185,28 +185,24 @@ void loop() {
            // Serial.println("Server response: " + response);
            // Serial.println("Server response: " + httpResponseCode);
 
-              while (response == "on" && servo1Pos < 180) {
+              if (response == "on" && servo1Pos < 180) {
                  Serial.println("Server response: " + response);
                  Serial.println(servo1Pos);
-                 servo1Pos = servo1Pos + 15;
+                 servo1Pos = servo1Pos + 10;
                  servo1.write(servo1Pos);              // tell servo to go to position in variable 'pos'
-                delay(50);
-                break;
+               
                 }
-                while (response == "off" && servo1Pos > 0) {
+                else if (response == "off" && servo1Pos > 0) {
                  Serial.println("Server response: " + response);
                  Serial.println(servo1Pos);
-                 servo1Pos = servo1Pos - 15;
+                 servo1Pos = servo1Pos - 10;
                  servo1.write(servo1Pos);
-                delay(50);
-                break;
+                       
               } 
-                while(response == "nothing"){
-                Serial.println("Im doing nothing:");
-                
+                else if(response == "nothing"){
+                Serial.println("Im doing nothing:");                
                 Serial.println(servo1Pos);
-                delay(50);
-                break;
+              
               } 
                 
             }
