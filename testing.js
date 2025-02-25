@@ -5,23 +5,36 @@ const app = express();
 app.use(cors());
 app.use(express.static("public")); // Serve static HTML
  
-let lightStatus = "off"; // Default light status
+let lightStatus = "nothing"; // Default light status
  
-app.get("/on", (req, res) => {
-    lightStatus = "on";
-    console.log("Light turned ON");
-    res.send("Light is ON");
+app.get("/up", (req, res) => {
+    lightStatus = "up";
+    console.log("Going up");
+    res.send("Up");
 });
  
-app.get("/off", (req, res) => {
-    lightStatus = "off";
-    console.log("Light turned OFF");
-    res.send("Light is OFF");
+app.get("/down", (req, res) => {
+    lightStatus = "down";
+    console.log("Going Down");
+    res.send("down");
 });
+
+app.get("/left", (req, res) => {
+    lightStatus = "left";
+    console.log("Going Left");
+    res.send("down");
+});
+
+app.get("/right", (req, res) => {
+    lightStatus = "right";
+    console.log("Going Right");
+    res.send("right");
+});
+
 app.get("/nothing", (req, res) => {
     lightStatus = "nothing";
-    console.log("Light turned same");
-    res.send("Light is same");
+    console.log("Not moving");
+    res.send("Not moving");
 });
  
 app.get("/status", (req, res) => {

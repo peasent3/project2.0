@@ -52,7 +52,7 @@ Servo servo2;
 #define SERVO_STEP   5 
 
 int servo1Pos = 90;
-int servo2Pos = 0;
+int servo2Pos = 90;
 
 void setup() {
 
@@ -185,24 +185,35 @@ void loop() {
            // Serial.println("Server response: " + response);
            // Serial.println("Server response: " + httpResponseCode);
 
-              if (response == "on" && servo1Pos < 180) {
+              if (response == "up" && servo1Pos < 180) {
                  Serial.println("Server response: " + response);
                  Serial.println(servo1Pos);
                  servo1Pos = servo1Pos + 10;
-                 servo1.write(servo1Pos);              // tell servo to go to position in variable 'pos'
-               
+                 servo1.write(servo1Pos);              // tell servo to go to position in variable 'pos' 
                 }
-                else if (response == "off" && servo1Pos > 0) {
+                else if (response == "down" && servo1Pos > 0) {
                  Serial.println("Server response: " + response);
                  Serial.println(servo1Pos);
                  servo1Pos = servo1Pos - 10;
-                 servo1.write(servo1Pos);
+                 servo1.write(servo1Pos);                 
+              } 
+              else if (response == "left" && servo1Pos < 180) {
+                 Serial.println("Server response: " + response);
+                 Serial.println(servo1Pos);
+                 servo2Pos = servo2Pos + 10;
+                 servo2.write(servo2Pos);          
+              } 
+              else if (response == "right" && servo1Pos > 0) {
+                 Serial.println("Server response: " + response);
+                 Serial.println(servo1Pos);
+                 servo2Pos = servo2Pos - 10;
+                 servo2.write(servo2Pos);
                        
               } 
                 else if(response == "nothing"){
                 Serial.println("Im doing nothing:");                
                 Serial.println(servo1Pos);
-              
+                Serial.println(servo2Pos);
               } 
                 
             }
