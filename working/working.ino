@@ -197,15 +197,15 @@ void loop() {
                  servo1Pos = servo1Pos - 10;
                  servo1.write(servo1Pos);                 
               } 
-              else if (response == "left" && servo1Pos < 180) {
+              else if (response == "left" && servo2Pos < 180) {
                  Serial.println("Server response: " + response);
-                 Serial.println(servo1Pos);
+                 Serial.println(servo2Pos);
                  servo2Pos = servo2Pos + 10;
                  servo2.write(servo2Pos);          
               } 
-              else if (response == "right" && servo1Pos > 0) {
+              else if (response == "right" && servo2Pos > 0) {
                  Serial.println("Server response: " + response);
-                 Serial.println(servo1Pos);
+                 Serial.println(servo2Pos);
                  servo2Pos = servo2Pos - 10;
                  servo2.write(servo2Pos);
                        
