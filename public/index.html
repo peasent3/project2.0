@@ -18,10 +18,10 @@
 <img id="videoFeed" src="http://192.168.1.104:81/stream" alt="Camera Stream">
  
     <br>
-    <button onclick="goUp()" onmouseup="doNothing()">Up</button>
-    <button onclick="goDown()" onmouseup="doNothing()">Down</button> 
-    <button onclick="goLeft()" onmouseup="doNothing()">Left</button>
-    <button onclick="goRight()" onmouseup="doNothing()">Right</button> 
+    <button ontouchstart="goUp()" ontouchend="doNothing()">Up</button>
+    <button ontouchstart="goDown()" ontouchend="doNothing()">Down</button> 
+    <button ontouchstart="goLeft()" ontouchend="doNothing()">Left</button>
+    <button ontouchstart="goRight()" ontouchend="doNothing()">Right</button> 
     <script>
         
         document.addEventListener("keydown", function(event) {
