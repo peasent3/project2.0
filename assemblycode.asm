@@ -122,6 +122,9 @@ standbymsg:
 	rcall init_msg1
 	rcall loopmsg
 
+	ldi r17, $00 ; stopsn the car by force
+	out PORTD, r17
+
 check:
 	in r18, PINE ; reads PINE to switch between standby and connected
 	andi r18, $01
