@@ -1,5 +1,16 @@
 ;
 ; AssemblerApplication3.asm
+<<<<<<< HEAD
+=======
+;
+; Created: 1/21/2025 11:26:45 AM
+; Author : 1933124
+;
+; Replace with your application code
+
+;
+; Lab10.asm
+>>>>>>> 9da6e9a0b7477aacbbbc52c50b9393cf9050b925
 ;
 ; Created: 1/21/2025 11:26:45 AM
 ; Author : 1933124
@@ -82,10 +93,17 @@ ldi r24, $B0 ; hex value for loops to achieve 1.52 ms
 	in r18, PINE ; reads PINE to switch between standby and connected
 	andi r18, $01
 
+<<<<<<< HEAD
 	cpi r18, $01 ;If high, connected message
 	breq connectedmsg
 
 	cpi r18, $00 ; if low, standby message
+=======
+	cpi r18, $01
+	breq connectedmsg
+
+	cpi r18, $00
+>>>>>>> 9da6e9a0b7477aacbbbc52c50b9393cf9050b925
 	breq standbymsg
 
 	rjmp init_check
@@ -113,7 +131,11 @@ standbymsg:
 	rcall init_msg1
 	rcall loopmsg
 
+<<<<<<< HEAD
 	ldi r17, $00 ; stopsn the car by force durring standby
+=======
+	ldi r17, $00 ; stopsn the car by force
+>>>>>>> 9da6e9a0b7477aacbbbc52c50b9393cf9050b925
 	out PORTD, r17
 
 check:
@@ -224,7 +246,11 @@ init_msg3:
 	ldi r30, low(msg3<<1) ; initializes msg array to z
 	ldi r31, high(msg3<<1)
 	ret 
+<<<<<<< HEAD
 loopmsg: ; function to output message to lcd
+=======
+loopmsg:
+>>>>>>> 9da6e9a0b7477aacbbbc52c50b9393cf9050b925
 	lpm r17, Z+
 	cpi r17, NUL
 	breq end
