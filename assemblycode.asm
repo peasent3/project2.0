@@ -1,11 +1,10 @@
 ;
-; Lab10.asm
+; AssemblerApplication3.asm
 ;
-; Created: 11/25/2024 1:49:29 PM
-; Author : kinji
+; Created: 1/21/2025 11:26:45 AM
+; Author : 1933124
 ;
 ; Replace with your application code
-
 .EQU BUSON = $80
 .EQU VAL = $96 
 .EQU ADR = $2000 ; adress specified
@@ -58,8 +57,40 @@ ldi r24, $B0 ; hex value for loops to achieve 1.52 ms
 	rcall init_msg
 	rcall loopmsg
 
+	clr r21
+	del1s://delay
+		ldi r25, $1E
+		ldi r24, $C8 ; hex value to loop to achieve time delay
+		rcall delms
+		inc r21
+		cpi r21, 40
+		brne del1s
+		clr r21	
 
-next_line:
+	ldi r17, $01 ; clears the lcd
+	sts ADR, r17
+	rcall delms
+
+	ldi r17, $06
+	sts ADR, r17
+	rcall del37
+
+	rcall init_msg3
+	rcall loopmsg
+
+	init_check:
+	in r18, PINE ; reads PINE to switch between standby and connected
+	andi r18, $01
+
+	cpi r18, $01 ;If high, connected message
+	breq connectedmsg
+
+	cpi r18, $00 ; if low, standby message
+	breq standbymsg
+
+	rjmp init_check
+
+standbymsg:
 	clr r21
 	del41:
 		ldi r25, $00
@@ -82,14 +113,26 @@ next_line:
 	rcall init_msg1
 	rcall loopmsg
 
+	ldi r17, $00 ; stopsn the car by force durring standby
+	out PORTD, r17
+
 check:
-	in r18, PINB ; reads PINB to switch between ndoe and spvis
+	in r18, PINE ; reads PINE to switch between standby and connected
 	andi r18, $01
 	cpi r18, $01
-	breq next_line2
+	breq connectedmsg
 	rjmp check
 
-next_line2:
+connectedmsg:
+	clr r21
+	del42:
+		ldi r25, $00
+		ldi r24, $CB ; hex value to loop to achieve 1 ms
+		rcall delms ; this loops 1ms 40 times to achieve 40ms
+		inc r21
+		cpi r21, 40
+		brne del42
+		clr r21
 
 	ldi r17, $C0 ;function set to go to the next line of lcd
 	sts ADR, r17
@@ -102,12 +145,53 @@ next_line2:
 	rcall init_msg2
 	rcall loopmsg
 
-	check2:
-	in r18, PINB ; reads PINB to switch between ndoe and spvis
+	connected:
+	in r16, PINB ; Continues to read input 
+	andi r16, $0F
+
+	in r18, PINE ; reads PINE to switch between standby and connected
 	andi r18, $01
 	cpi r18, $00
-	breq next_line
-	rjmp check2
+	breq standbymsg
+ 
+	cpi r16, 1 ; checks if D0 is high
+	breq forward
+
+	cpi r16, 2 ; checks if D1 is high
+	breq left
+
+
+	cpi r16, 4 ; checks if D2 is high
+	breq right
+
+
+	cpi r16, 8 ; checks if D3 is high
+	breq back
+
+	ldi r17, $00 ; stopsn the car
+	out PORTD, r17
+
+	rjmp connected
+
+	forward:
+		ldi r17, $0A ; Turns the car forward
+		out PORTD, r17
+		rjmp connected
+
+	left:
+		ldi r17, $06 ; turns car left
+		out PORTD, r17
+		rjmp connected
+
+	right:
+		ldi r17, $09 ; turns car right
+		out PORTD, r17
+		rjmp connected
+
+	back:
+		ldi r17, $05 ; turns car back
+		out PORTD, r17
+		rjmp connected
 
 fini: rjmp fini
 
@@ -136,8 +220,11 @@ init_msg2:
 	ldi r30, low(msg2<<1) ; initializes msg array to z
 	ldi r31, high(msg2<<1)
 	ret 
-
-loopmsg:
+init_msg3:
+	ldi r30, low(msg3<<1) ; initializes msg array to z
+	ldi r31, high(msg3<<1)
+	ret 
+loopmsg: ; function to output message to lcd
 	lpm r17, Z+
 	cpi r17, NUL
 	breq end
@@ -148,8 +235,7 @@ loopmsg:
 end:
 	ret
 
-
-lcd_puts:
+lcd_puts: ; outputs one letter at a time to the lcd
 	ldi r25, $13
 	ldi r24, $88 
 	rcall delms ; this is a 1 ml second delay for every character outputed
@@ -157,5 +243,6 @@ lcd_puts:
 	ret
 
 msg: .db "Recon Bot 1.0",NUL
-msg1: .db "Standby ",NUL
-msg2: .db "Power On",NUL
+msg1: .db "Stand by ",NUL
+msg2: .db "Connected",NUL
+msg3: .db "Status:",NUL
