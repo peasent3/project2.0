@@ -37,7 +37,7 @@
 // ===========================
 // Enter your WiFi credentials
 // ===========================
-const char *ssid = "history";
+const char *ssid = "pp";
 const char *password = "electrotech";
 const char* serverUrl = "http://192.168.1.122:3000";
 void startCameraServer();
@@ -55,6 +55,8 @@ int servo1Pos = 90;
 int servo2Pos = 90;
 
 void setup() {
+  pinMode(2,OUTPUT);
+  digitalWrite(2,LOW);
 
   servo1.setPeriodHertz(50);    // standard 50 hz servo
   servo2.setPeriodHertz(50);    // standard 50 hz servo
@@ -165,7 +167,6 @@ void setup() {
   }
   Serial.println("");
   Serial.println("WiFi connected");
-
   startCameraServer();
 
   Serial.print("Camera Ready! Use 'http://");
@@ -176,6 +177,7 @@ void setup() {
 
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
+        digitalWrite(2,HIGH);
         HTTPClient http;
         http.begin(String(serverUrl) + "/status"); 
         int httpResponseCode = http.GET();
@@ -220,5 +222,11 @@ void loop() {
   
         http.end();
     }
+    else {
+  digitalWrite(2,LOW);
+  }
   delay(100);
+
 }
+
+
