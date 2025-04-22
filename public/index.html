@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ESP32 Camera Servo Controller</title>
 <style>
-
+        .flip-horizontal {
+                tranform scaleX(-1);
+        }
         body { text-align: center; font-family: Arial, sans-serif; }
 
         button { padding: 10px 20px; margin: 10px; font-size: 16px; }
@@ -15,7 +17,7 @@
 </head>
 <body>
 <h1>ESP32 Camera Servo Control</h1>
-<img id="videoFeed" src="http://192.168.1.104:81/stream" alt="Camera Stream">
+<img id="videoFeed" src="http://192.168.1.104:81/stream" alt="Camera Stream" class="flip-horizontal">
  
     <br>
     <button ontouchstart="goLeft()" ontouchend="doNothing()">Left</button>
