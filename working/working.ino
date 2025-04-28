@@ -210,13 +210,14 @@ void loop() {
                  servo2.write(servo2Pos);
                        
               } 
-                   else if(response == "center"){
+              else if(response == "Centered"){
                 Serial.println("centered:"); 
                 servo1Pos = 90;   
                 servo2Pos = 90;     
-                servo1.write(servo1Pos);           
-                servo2.write(servo2Pos);
+                 servo1.write(servo1Pos);
+                 servo2.write(servo2Pos);
               }
+              
                      
                 else if(response == "nothing"){
                 Serial.println("Im doing nothing:");                
