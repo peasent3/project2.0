@@ -31,6 +31,12 @@ app.get("/right", (req, res) => {
     res.send("right");
 });
 
+app.get("/center", (req, res) => {
+    lightStatus = "Centered";
+    console.log("Centered");
+    res.send("Centered");
+});
+
 app.get("/nothing", (req, res) => {
     lightStatus = "nothing";
     console.log("Not moving");
