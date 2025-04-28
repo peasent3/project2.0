@@ -79,6 +79,12 @@
 
         }
 
+        function Center() {
+
+            fetch("/center").then(response => response.text()).then(console.log);
+
+        }
+            
         function doNothing() {
 
         fetch("/nothing").then(response => response.text()).then(console.log);
