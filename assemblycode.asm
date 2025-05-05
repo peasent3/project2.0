@@ -18,7 +18,7 @@
 ; Replace with your application code
 .EQU BUSON = $80
 .EQU VAL = $96 
-.EQU ADR = $2000 ; adress specified
+.EQU ADR = $3000 ; adress specified
 .EQU NUL = 0
 
 .cseg
@@ -265,10 +265,10 @@ lcd_puts: ; outputs one letter at a time to the lcd
 	ldi r25, $13
 	ldi r24, $88 
 	rcall delms ; this is a 1 ml second delay for every character outputed
-	sts $2100, r17 ; outputs the character stored in r17
+	sts $3100, r17 ; outputs the character stored in r17
 	ret
 
 msg: .db "Recon Bot 1.0",NUL
-msg1: .db "Stand by ",NUL
-msg2: .db "Connected",NUL
-msg3: .db "Status:",NUL
+msg1: .db "Stand by   ",NUL
+msg2: .db "Established",NUL
+msg3: .db "Com Status:",NUL
