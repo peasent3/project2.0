@@ -39,7 +39,7 @@
 // ===========================
 const char *ssid = "history";
 const char *password = "electrotech";
-const char* serverUrl = "http://192.168.1.122:3000";
+const char* serverUrl = "bluenix.local:3000";
 void startCameraServer();
 void setupLedFlash(int pin);
 #define LED_PIN 2 // Change to your LED pin
@@ -51,7 +51,7 @@ Servo servo2;
 #define SERVO_2      12
 #define SERVO_STEP   5 
 
-int servo1Pos = 90;
+int servo1Pos = 70;
 int servo2Pos = 90;
 
 void setup() {
@@ -188,13 +188,13 @@ void loop() {
               if (response == "up" && servo1Pos < 180) {
                  Serial.println("Server response: " + response);
                  Serial.println(servo1Pos);
-                 servo1Pos = servo1Pos + 10;
+                 servo1Pos = servo1Pos - 10;
                  servo1.write(servo1Pos);              // tell servo to go to position in variable 'pos' 
                 }
                 else if (response == "down" && servo1Pos > 0) {
                  Serial.println("Server response: " + response);
                  Serial.println(servo1Pos);
-                 servo1Pos = servo1Pos - 10;
+                 servo1Pos = servo1Pos + 10;
                  servo1.write(servo1Pos);                 
               } 
               else if (response == "left" && servo2Pos < 180) {
@@ -212,7 +212,7 @@ void loop() {
               } 
               else if(response == "Centered"){
                 Serial.println("centered:"); 
-                servo1Pos = 90;   
+                servo1Pos = 70;   
                 servo2Pos = 90;     
                  servo1.write(servo1Pos);
                  servo2.write(servo2Pos);
