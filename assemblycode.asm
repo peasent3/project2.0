@@ -18,7 +18,7 @@
 ; Replace with your application code
 .EQU BUSON = $80
 .EQU VAL = $96 
-.EQU ADR = $2000 ; adress specified
+.EQU ADR = $3000 ; adress specified
 .EQU NUL = 0
 
 .cseg
