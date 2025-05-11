@@ -1,21 +1,7 @@
-;
-; AssemblerApplication3.asm
-<<<<<<< HEAD
-=======
-;
-; Created: 1/21/2025 11:26:45 AM
-; Author : 1933124
-;
-; Replace with your application code
 
+; Author : Kinjie Supe
 ;
-; Lab10.asm
->>>>>>> 9da6e9a0b7477aacbbbc52c50b9393cf9050b925
 ;
-; Created: 1/21/2025 11:26:45 AM
-; Author : 1933124
-;
-; Replace with your application code
 .EQU BUSON = $80
 .EQU VAL = $96 
 .EQU ADR = $3000 ; adress specified
@@ -265,10 +251,10 @@ lcd_puts: ; outputs one letter at a time to the lcd
 	ldi r25, $13
 	ldi r24, $88 
 	rcall delms ; this is a 1 ml second delay for every character outputed
-	sts $2100, r17 ; outputs the character stored in r17
+	sts $3100, r17 ; outputs the character stored in r17
 	ret
 
 msg: .db "Recon Bot 1.0",NUL
-msg1: .db "Stand by ",NUL
-msg2: .db "Connected",NUL
-msg3: .db "Status:",NUL
+msg1: .db "Stand by   ",NUL
+msg2: .db "Established",NUL
+msg3: .db "Com Status:",NUL
